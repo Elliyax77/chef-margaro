@@ -199,7 +199,7 @@ function App() {
       <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh', flexDirection: 'column', color: 'var(--text-secondary)' }}>
         <div style={{ width: '40px', height: '40px', border: '4px solid var(--border-color)', borderTop: '4px solid var(--primary-color)', borderRadius: '50%', animation: 'spin 1s linear infinite', marginBottom: '16px' }}></div>
         <style>{`@keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }`}</style>
-        <h2>Cargando menú de {selectedLocation.name}...</h2>
+        <h2 style={{ textAlign: 'center', padding: '0 20px', fontSize: '20px', lineHeight: '1.4' }}>Cargando menú de {selectedLocation.name}...</h2>
       </div>
     );
   }
