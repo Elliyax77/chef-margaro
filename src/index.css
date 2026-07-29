@@ -278,6 +278,7 @@ button {
   top: 0;
   z-index: 40;
   display: flex;
+  justify-content: center;
   overflow-x: auto;
   gap: 12px;
   padding: 16px 20px;
