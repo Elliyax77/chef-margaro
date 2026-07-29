@@ -12,7 +12,7 @@
   "locations": [
     {
       "id": "san-diego",
-      "name": "Sede San Diego",
+      "name": "Eli Sushi San Diego",
       "location": "Visítanos aquí (Ver Mapa)",
       "city": "San Diego",
       "state": "Valencia",
@@ -22,8 +22,8 @@
     },
     {
       "id": "maracay",
-      "name": "Sede Maracay",
-      "location": "Sede Maracay (Ver Mapa)",
+      "name": "Eli Sushi Maracay",
+      "location": "Eli Sushi Maracay (Ver Mapa)",
       "city": "Maracay",
       "state": "Aragua",
       "mapUrl": "https://maps.app.goo.gl/wfh6m7bTpX44NWQW6",
