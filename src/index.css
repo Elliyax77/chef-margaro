@@ -25,6 +25,17 @@
   box-sizing: border-box;
 }
 
+.developer-link {
+  color: inherit;
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.developer-link:hover {
+  color: var(--primary-color);
+  text-decoration: underline;
+}
+
 body {
   font-family: var(--font-family);
   background-color: var(--bg-color);
