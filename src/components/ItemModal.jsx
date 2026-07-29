@@ -123,8 +123,8 @@ export default function ItemModal({ item, currency, exchangeRate, onClose, onAdd
               "¡Agregado! ✓"
             ) : (
               <>
-                Agregar {quantity > 1 ? quantity : ''} - {currency}{(item.price * quantity).toFixed(2)}
-                {exchangeRate && ` (Bs ${((item.price * quantity) * exchangeRate).toFixed(2)})`}
+                <span>Agregar {quantity > 1 ? quantity : ''} - {currency}{(item.price * quantity).toFixed(2)}</span>
+                {exchangeRate && <span className="add-btn-bs">(Bs {((item.price * quantity) * exchangeRate).toFixed(2)})</span>}
               </>
             )}
           </button>
