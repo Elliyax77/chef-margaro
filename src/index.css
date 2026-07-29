@@ -560,7 +560,7 @@ button {
   background: rgba(255,255,255,0.8);
   backdrop-filter: blur(4px);
   -webkit-backdrop-filter: blur(4px);
-  color: var(--text-primary);
+  color: var(--primary-color);
   border: none;
   border-radius: 50%;
   width: 36px;
