@@ -6,6 +6,7 @@ import ProductCard from './components/ProductCard.jsx'
 import Cart from './components/Cart.jsx'
 import ItemModal from './components/ItemModal.jsx'
 import LocationSelector from './components/LocationSelector.jsx'
+import WelcomeModal from './components/WelcomeModal.jsx'
 import menuData from './data/menu.json'
 import './index.css'
 
@@ -120,11 +121,14 @@ function App() {
 
   if (!selectedLocation) {
     return (
-      <LocationSelector 
-        locations={locations} 
-        restaurant={restaurant} 
-        onSelect={setSelectedLocation} 
-      />
+      <>
+        <WelcomeModal restaurantName={restaurant.name} />
+        <LocationSelector 
+          locations={locations} 
+          restaurant={restaurant} 
+          onSelect={setSelectedLocation} 
+        />
+      </>
     );
   }
 

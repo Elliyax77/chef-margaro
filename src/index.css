@@ -468,6 +468,55 @@ button {
 }
 
 /* Checkout Modal Headers */
+.welcome-modal {
+  text-align: center;
+  padding: 32px 24px;
+}
+
+.welcome-title {
+  font-size: 24px;
+  font-weight: 800;
+  margin-bottom: 24px;
+  color: var(--text-primary);
+  line-height: 1.3;
+}
+
+.welcome-text {
+  font-size: 16px;
+  color: var(--text-primary);
+  margin-bottom: 20px;
+  line-height: 1.5;
+}
+
+.btn-welcome {
+  background-color: var(--text-primary);
+  color: var(--bg-color);
+  border: none;
+  border-radius: 9999px;
+  padding: 16px;
+  width: 100%;
+  font-weight: 800;
+  font-size: 16px;
+  margin-top: 12px;
+  margin-bottom: 16px;
+  box-shadow: 0 4px 14px rgba(0,0,0,0.2);
+  transition: transform 0.2s;
+}
+
+.btn-welcome:active {
+  transform: scale(0.98);
+}
+
+.btn-welcome-hide {
+  background: transparent;
+  border: none;
+  width: 100%;
+  color: var(--text-secondary);
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+}
+
 .modal-header {
   display: flex;
   justify-content: space-between;
