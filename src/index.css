@@ -714,6 +714,16 @@ button {
   transform: scale(0.98);
 }
 
+@keyframes successPulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+  100% { transform: scale(1); }
+}
+
+.success-pulse {
+  animation: successPulse 0.3s ease-out forwards;
+}
+
 /* Floating Cart Pill */
 .cart-bar {
   position: fixed;

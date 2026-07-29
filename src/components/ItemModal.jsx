@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 export default function ItemModal({ item, currency, exchangeRate, onClose, onAddToCart }) {
   const [quantity, setQuantity] = useState(1);
   const [notes, setNotes] = useState('');
+  const [isAdded, setIsAdded] = useState(false);
   
   // Estado para los ingredientes removibles. Por defecto, todos están incluidos (true)
   const [ingredients, setIngredients] = useState(() => {
@@ -23,17 +24,22 @@ export default function ItemModal({ item, currency, exchangeRate, onClose, onAdd
   };
 
   const handleAdd = () => {
+    setIsAdded(true);
+    
     // Buscar qué ingredientes se quitaron
     const removedIngredients = Object.entries(ingredients)
       .filter(([_, isIncluded]) => !isIncluded)
       .map(([ing, _]) => ing);
 
-    onAddToCart({
-      productId: item.id,
-      quantity,
-      notes,
-      removedIngredients
-    });
+    setTimeout(() => {
+      onAddToCart({
+        productId: item.id,
+        quantity,
+        notes,
+        removedIngredients
+      });
+      setIsAdded(false);
+    }, 400);
   };
 
   return (
@@ -107,9 +113,20 @@ export default function ItemModal({ item, currency, exchangeRate, onClose, onAdd
             >+</button>
           </div>
           
-          <button className="btn-add-large" onClick={handleAdd}>
-            Agregar {quantity > 1 ? quantity : ''} - {currency}{(item.price * quantity).toFixed(2)}
-            {exchangeRate && ` (Bs ${((item.price * quantity) * exchangeRate).toFixed(2)})`}
+          <button 
+            className={`btn-add-large ${isAdded ? 'success-pulse' : ''}`} 
+            onClick={handleAdd}
+            disabled={isAdded}
+            style={{ backgroundColor: isAdded ? '#22c55e' : '' }}
+          >
+            {isAdded ? (
+              "¡Agregado! ✓"
+            ) : (
+              <>
+                Agregar {quantity > 1 ? quantity : ''} - {currency}{(item.price * quantity).toFixed(2)}
+                {exchangeRate && ` (Bs ${((item.price * quantity) * exchangeRate).toFixed(2)})`}
+              </>
+            )}
           </button>
         </div>
       </div>
