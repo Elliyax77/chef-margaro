@@ -261,6 +261,48 @@ button {
   box-shadow: var(--shadow-sm);
 }
 
+/* Category Navigation (Sticky) */
+.category-nav {
+  position: sticky;
+  top: 0;
+  z-index: 40;
+  display: flex;
+  overflow-x: auto;
+  gap: 12px;
+  padding: 16px 20px;
+  background-color: var(--bg-color);
+  border-bottom: 1px solid var(--border-color);
+  margin-bottom: 24px;
+  
+  /* Hide scrollbar for clean look */
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}
+
+.category-nav::-webkit-scrollbar {
+  display: none;
+}
+
+.category-nav-btn {
+  background-color: var(--card-bg);
+  color: var(--text-primary);
+  border: 1px solid var(--border-color);
+  border-radius: 9999px;
+  padding: 8px 16px;
+  font-size: 14px;
+  font-weight: 600;
+  white-space: nowrap;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: var(--shadow-sm);
+}
+
+.category-nav-btn:hover,
+.category-nav-btn:active {
+  border-color: var(--primary-color);
+  color: var(--primary-color);
+  transform: translateY(-1px);
+}
+
 /* Categorías */
 .category-section {
   padding: 0 20px;

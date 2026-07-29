@@ -7,6 +7,7 @@ import Cart from './components/Cart.jsx'
 import ItemModal from './components/ItemModal.jsx'
 import LocationSelector from './components/LocationSelector.jsx'
 import WelcomeModal from './components/WelcomeModal.jsx'
+import CategoryNav from './components/CategoryNav.jsx'
 import menuData from './data/menu.json'
 import './index.css'
 
@@ -210,9 +211,11 @@ function App() {
       <div className="content-wrapper">
         <Header restaurant={computedRestaurant} />
         
+        <CategoryNav categories={categories} />
+        
         <main>
           {categories.map(category => (
-            <section key={category.id} className="category-section">
+            <section key={category.id} id={category.id} className="category-section">
               <h2 className="category-title">{category.name}</h2>
               <div className="product-list">
                 {category.items.map(item => (
