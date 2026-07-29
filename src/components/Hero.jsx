@@ -6,7 +6,7 @@ export default function Hero() {
       <div className="hero-background">
         <img 
           src="/hero-bg.jpg"
-          alt="Chef Margot Sushi"
+          alt="Eli Sushi"
           className="hero-image"
         />
         {/* Capa oscura translúcida para que el texto resalte */}
@@ -15,8 +15,8 @@ export default function Hero() {
       
       <div className="hero-content">
         <div className="hero-brand">
-          <img src="/logo.png" alt="Chef Margot Logo" className="hero-brand-logo" />
-          <h1 className="hero-brand-name">Chef Margot</h1>
+          <img src="/logo.png" alt="Eli Sushi Logo" className="hero-brand-logo" />
+          <h1 className="hero-brand-name">Eli Sushi</h1>
         </div>
         <h2 className="hero-title">¡Desliza hacia abajo<br/>y pide ya!</h2>
         <div className="hero-arrow">

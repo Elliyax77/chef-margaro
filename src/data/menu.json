@@ -1,20 +1,36 @@
 {
   "restaurant": {
-    "name": "Chef Margot",
+    "name": "Eli Sushi",
     "logoUrl": "/logo.png",
     "description": "El mejor sushi de la ciudad. Calidad y sabor desde el primer bocado.",
-    "location": "Visítanos aquí (Ver Mapa)",
-    "city": "San Diego",
-    "state": "Valencia",
-    "isOpen": true,
-    "mapUrl": "https://maps.app.goo.gl/wfh6m7bTpX44NWQW6",
-    "phone": "584244980621",
     "greeting": "¡Hola! Quisiera hacer el siguiente pedido:",
     "currency": "$"
   },
   "theme": {
     "primaryColor": "#ef4444"
   },
+  "locations": [
+    {
+      "id": "san-diego",
+      "name": "Sede San Diego",
+      "location": "Visítanos aquí (Ver Mapa)",
+      "city": "San Diego",
+      "state": "Valencia",
+      "mapUrl": "https://maps.app.goo.gl/wfh6m7bTpX44NWQW6",
+      "phone": "584244980621",
+      "sheetUrl": "https://docs.google.com/spreadsheets/d/1-Ex-MmiiSuUcgMfhwln0nXM5tP7DDxlq1kcnvnLMUF0/export?format=csv"
+    },
+    {
+      "id": "maracay",
+      "name": "Sede Maracay",
+      "location": "Sede Maracay (Ver Mapa)",
+      "city": "Maracay",
+      "state": "Aragua",
+      "mapUrl": "https://maps.app.goo.gl/wfh6m7bTpX44NWQW6",
+      "phone": "584240000000",
+      "sheetUrl": "https://docs.google.com/spreadsheets/d/1-Ex-MmiiSuUcgMfhwln0nXM5tP7DDxlq1kcnvnLMUF0/export?format=csv"
+    }
+  ],
   "categories": [
     {
       "id": "c1",

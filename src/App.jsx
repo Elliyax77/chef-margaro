@@ -5,45 +5,30 @@ import Hero from './components/Hero.jsx'
 import ProductCard from './components/ProductCard.jsx'
 import Cart from './components/Cart.jsx'
 import ItemModal from './components/ItemModal.jsx'
+import LocationSelector from './components/LocationSelector.jsx'
 import menuData from './data/menu.json'
 import './index.css'
 
 function App() {
-  // Ahora el carrito es un array de objetos
   const [cart, setCart] = useState([])
   const [selectedItem, setSelectedItem] = useState(null)
   
-  // Extraer información estática del JSON (restaurant y theme)
-  const { restaurant, theme } = menuData
+  // Extraer información estática del JSON
+  const { restaurant, theme, locations } = menuData
 
   // Estados para los datos dinámicos (Google Sheets)
-  const [categories, setCategories] = useState(menuData.categories) // Fallback al JSON
-  const [isLoading, setIsLoading] = useState(true)
+  const [selectedLocation, setSelectedLocation] = useState(null)
+  const [categories, setCategories] = useState([])
+  const [isLoading, setIsLoading] = useState(false)
   
-  // Calcular automáticamente si está abierto (Temporalmente forzado a ABIERTO para pruebas)
-  const checkIsOpen = () => {
-    return true; // Forzado a abierto por petición del usuario
-    
-    /* Lógica original comentada:
-    try {
-      const vzlaTime = new Date().toLocaleString("en-US", {timeZone: "America/Caracas"});
-      const date = new Date(vzlaTime);
-      const hours = date.getHours();
-      // 10:00 AM a 11:00 PM (23:00)
-      return hours >= 10 && hours < 23;
-    } catch (e) {
-      // Fallback local time
-      const hours = new Date().getHours();
-      return hours >= 10 && hours < 23;
-    }
-    */
-  };
+  // Calcular automáticamente si está abierto
+  const checkIsOpen = () => true; // Forzado a abierto por petición del usuario
 
   const [isRestaurantOpen, setIsRestaurantOpen] = useState(checkIsOpen());
   const [exchangeRate, setExchangeRate] = useState(null);
 
+  // Efecto inicial estático
   useEffect(() => {
-    // Update document title and favicon
     document.title = restaurant.name;
     let link = document.querySelector("link[rel~='icon']");
     if (!link) {
@@ -51,15 +36,17 @@ function App() {
       link.rel = 'icon';
       document.head.appendChild(link);
     }
-    
     let faviconUrl = restaurant.logoUrl || '/favicon.svg';
-    // Forzar formato JPG para el favicon si es de Unsplash (auto=format a veces devuelve webp/avif que no sirven de favicon)
     if (faviconUrl && typeof faviconUrl === 'string' && faviconUrl.includes('unsplash.com')) {
       faviconUrl = faviconUrl.replace('auto=format', 'fm=jpg');
       link.type = 'image/jpeg';
     }
-    
     link.href = faviconUrl;
+
+    if (theme && theme.primaryColor) {
+      document.documentElement.style.setProperty('--primary-color', theme.primaryColor)
+      document.documentElement.style.setProperty('--primary-hover', theme.primaryColor + 'cc')
+    }
 
     // Fetch BCV rate
     fetch('https://ve.dolarapi.com/v1/dolares/oficial')
@@ -71,9 +58,19 @@ function App() {
       })
       .catch(error => console.error('Error fetching BCV rate:', error));
 
-    // Fetch Google Sheets Menu
-    const sheetUrl = 'https://docs.google.com/spreadsheets/d/1-Ex-MmiiSuUcgMfhwln0nXM5tP7DDxlq1kcnvnLMUF0/export?format=csv';
-    Papa.parse(sheetUrl, {
+    const interval = setInterval(() => setIsRestaurantOpen(checkIsOpen()), 60000);
+    return () => clearInterval(interval);
+  }, [restaurant.name, restaurant.logoUrl, theme]);
+
+  // Efecto dinámico al seleccionar una sede
+  useEffect(() => {
+    if (!selectedLocation) return;
+    
+    setIsLoading(true);
+    setCategories([]); // Limpiar menú anterior
+    setCart([]); // Limpiar carrito al cambiar de sede
+    
+    Papa.parse(selectedLocation.sheetUrl, {
       download: true,
       header: true,
       complete: (results) => {
@@ -81,7 +78,7 @@ function App() {
         const catMap = {};
         
         rows.forEach(row => {
-          if (!row.Nombre || !row.Categoria) return; // Saltar filas vacías
+          if (!row.Nombre || !row.Categoria) return;
           
           if (!catMap[row.Categoria]) {
             catMap[row.Categoria] = {
@@ -116,30 +113,29 @@ function App() {
       },
       error: (error) => {
         console.error('Error loading Google Sheets data:', error);
-        setIsLoading(false); // Fallback to menu.json categories
+        setIsLoading(false);
       }
     });
+  }, [selectedLocation]);
 
-    // Actualizar el estado cada minuto
-    const interval = setInterval(() => {
-      setIsRestaurantOpen(checkIsOpen());
-    }, 60000);
-    return () => clearInterval(interval);
-  }, []);
+  if (!selectedLocation) {
+    return (
+      <LocationSelector 
+        locations={locations} 
+        restaurant={restaurant} 
+        onSelect={setSelectedLocation} 
+      />
+    );
+  }
 
-  const computedRestaurant = { ...restaurant, isOpen: isRestaurantOpen, exchangeRate };
+  const computedRestaurant = { 
+    ...restaurant, 
+    ...selectedLocation, // Sobrescribe con datos de la sede (teléfono, ubicación, etc)
+    isOpen: isRestaurantOpen, 
+    exchangeRate 
+  };
 
-  // Todos los productos planos para fácil búsqueda
   const allItems = categories.flatMap(c => c.items)
-
-  // Aplicar el color primario al cargar
-  useEffect(() => {
-    if (theme && theme.primaryColor) {
-      document.documentElement.style.setProperty('--primary-color', theme.primaryColor)
-      document.documentElement.style.setProperty('--primary-hover', theme.primaryColor + 'cc')
-    }
-    document.title = restaurant.name
-  }, [theme, restaurant.name])
 
   const handleProductClick = (item) => {
     if (!isRestaurantOpen) {
@@ -151,7 +147,6 @@ function App() {
 
   const handleAddToCart = (details) => {
     setCart(prev => {
-      // Intentar buscar si ya existe EXACTAMENTE el mismo pedido (mismas notas, mismos ingredientes quitados)
       const existingIndex = prev.findIndex(cartItem => 
         cartItem.productId === details.productId &&
         cartItem.notes === details.notes &&
@@ -159,12 +154,10 @@ function App() {
       )
 
       if (existingIndex >= 0) {
-        // Sumar cantidades si es idéntico
         const newCart = [...prev]
         newCart[existingIndex].quantity += details.quantity
         return newCart
       } else {
-        // Crear nuevo item en el carrito con un ID único
         return [...prev, {
           cartItemId: Date.now().toString(),
           ...details
@@ -174,7 +167,6 @@ function App() {
     setSelectedItem(null)
   }
 
-  // Cuenta la cantidad total que hay en el carrito para un producto específico (sin importar sus notas)
   const getProductTotalQty = (productId) => {
     return cart.reduce((total, cartItem) => {
       if (cartItem.productId === productId) return total + cartItem.quantity
@@ -202,7 +194,7 @@ function App() {
       <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh', flexDirection: 'column', color: 'var(--text-secondary)' }}>
         <div style={{ width: '40px', height: '40px', border: '4px solid var(--border-color)', borderTop: '4px solid var(--primary-color)', borderRadius: '50%', animation: 'spin 1s linear infinite', marginBottom: '16px' }}></div>
         <style>{`@keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }`}</style>
-        <h2>Cargando menú...</h2>
+        <h2>Cargando menú de {selectedLocation.name}...</h2>
       </div>
     );
   }
@@ -223,7 +215,7 @@ function App() {
                   <ProductCard 
                     key={item.id} 
                     item={item} 
-                    currency={restaurant.currency}
+                    currency={computedRestaurant.currency}
                     cartQty={getProductTotalQty(item.id)}
                     exchangeRate={exchangeRate}
                     onClick={() => handleProductClick(item)}
@@ -243,17 +235,16 @@ function App() {
       <Cart 
         cart={cart} 
         items={allItems} 
-        currency={restaurant.currency} 
+        currency={computedRestaurant.currency} 
         restaurant={computedRestaurant} 
         onUpdateQty={handleUpdateCartItemQty}
         onRemoveItem={handleRemoveCartItem}
       />
 
-      {/* Modal interactivo para personalizar el producto */}
       {selectedItem && (
         <ItemModal 
           item={selectedItem} 
-          currency={restaurant.currency}
+          currency={computedRestaurant.currency}
           exchangeRate={exchangeRate}
           onClose={() => setSelectedItem(null)}
           onAddToCart={handleAddToCart}

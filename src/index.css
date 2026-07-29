@@ -828,24 +828,117 @@ button {
 
 .btn-whatsapp {
   width: 100%;
-  background-color: #25D366;
-  color: white;
+  background-color: #25d366;
+  color: #fff;
   border: none;
-  border-radius: 9999px; /* Pill */
+  border-radius: 9999px;
   padding: 16px;
   font-weight: 800;
   font-size: 16px;
-  margin-top: 32px;
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 8px;
+  gap: 12px;
   box-shadow: 0 4px 14px 0 rgba(37, 211, 102, 0.39);
-  transition: transform 0.2s;
+  transition: all 0.2s;
+  margin-top: 12px;
 }
 
 .btn-whatsapp:active {
   transform: scale(0.98);
+}
+
+/* Location Selector Styles */
+.location-selector-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background-color: var(--bg-color);
+  padding: 20px;
+}
+
+.location-selector-card {
+  background-color: var(--card-bg);
+  border-radius: 24px;
+  padding: 40px 30px;
+  width: 100%;
+  max-width: 480px;
+  text-align: center;
+  box-shadow: var(--shadow-lg);
+  border: 1px solid var(--border-color);
+}
+
+.location-logo {
+  width: 140px;
+  height: 140px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-bottom: 24px;
+  border: 3px solid var(--primary-color);
+  box-shadow: var(--shadow-md);
+}
+
+.location-title {
+  font-size: 28px;
+  color: var(--text-primary);
+  margin-bottom: 8px;
+}
+
+.location-subtitle {
+  font-size: 15px;
+  color: var(--text-secondary);
+  margin-bottom: 32px;
+}
+
+.locations-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.btn-location {
+  display: flex;
+  align-items: center;
+  background-color: var(--bg-color);
+  border: 1px solid var(--border-color);
+  border-radius: 16px;
+  padding: 16px 20px;
+  text-align: left;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  color: var(--text-primary);
+}
+
+.btn-location:hover {
+  background-color: rgba(239, 68, 68, 0.05);
+  border-color: var(--primary-color);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-sm);
+}
+
+.btn-location:active {
+  transform: translateY(0);
+}
+
+.loc-icon {
+  font-size: 24px;
+  margin-right: 16px;
+}
+
+.loc-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.loc-name {
+  font-size: 18px;
+  font-weight: 700;
+  margin-bottom: 4px;
+}
+
+.loc-city {
+  font-size: 14px;
+  color: var(--text-secondary);
 }
 
 .cart-item-row-container {
