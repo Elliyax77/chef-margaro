@@ -22,7 +22,7 @@ export default function WelcomeModal({ restaurantName }) {
   };
 
   return (
-    <div className="modal-overlay" style={{ zIndex: 9999 }}>
+    <div className="modal-overlay" style={{ zIndex: 9999, alignItems: 'center' }}>
       <div className="modal-content welcome-modal">
         <h2 className="welcome-title">¡Bienvenido al Menú Interactivo de {restaurantName}! 🚀</h2>
         
