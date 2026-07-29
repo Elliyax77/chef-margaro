@@ -10,9 +10,16 @@ export default function Header({ restaurant }) {
       {restaurant.description && <p className="header-desc">{restaurant.description}</p>}
       <div className="header-badges">
         {restaurant.isOpen !== undefined && (
-          <div className={`status-badge ${restaurant.isOpen ? 'open' : 'closed'}`}>
-            <span className="status-dot"></span>
-            {restaurant.isOpen ? 'Abierto Ahora' : 'Cerrado por el momento'}
+          <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '6px' }}>
+            <div className={`status-badge ${restaurant.isOpen ? 'open' : 'closed'}`}>
+              <span className="status-dot"></span>
+              {restaurant.isOpen ? 'Abierto Ahora' : 'Cerrado por el momento'}
+            </div>
+            {restaurant.isOpen && (
+              <span style={{ fontSize: '13px', color: 'var(--text-secondary)', fontWeight: '500' }}>
+                🛵 Delivery estimado: 15-20 min
+              </span>
+            )}
           </div>
         )}
         
