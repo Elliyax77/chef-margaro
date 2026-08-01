@@ -25,6 +25,10 @@
   box-sizing: border-box;
 }
 
+input, textarea {
+  color: #ffffff !important;
+}
+
 .developer-link {
   color: inherit;
   text-decoration: none;
@@ -698,6 +702,7 @@ button {
   font-size: 15px;
   resize: vertical;
   background-color: var(--bg-color);
+  color: #ffffff !important;
 }
 
 .notes-input:focus {
@@ -874,6 +879,7 @@ button {
   font-size: 15px;
   font-family: inherit;
   background-color: var(--bg-color);
+  color: #ffffff !important;
   transition: all 0.2s;
 }
 
