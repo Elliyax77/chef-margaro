@@ -1135,13 +1135,10 @@ button {
 
 /* Footer Completo */
 .app-footer {
-  background-color: var(--card-bg);
   padding: 40px 20px 30px;
   margin-top: 40px;
-  border-top: 1px solid var(--border-color);
+  border-top: 1px dashed var(--border-color);
   color: var(--text-secondary);
-  border-bottom-left-radius: 32px;
-  border-bottom-right-radius: 32px;
 }
 
 .footer-top {
