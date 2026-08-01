@@ -8,6 +8,7 @@ import ItemModal from './components/ItemModal.jsx'
 import LocationSelector from './components/LocationSelector.jsx'
 import WelcomeModal from './components/WelcomeModal.jsx'
 import CategoryNav from './components/CategoryNav.jsx'
+import Footer from './components/Footer.jsx'
 import menuData from './data/menu.json'
 import './index.css'
 
@@ -233,10 +234,7 @@ function App() {
           ))}
         </main>
         
-        <footer className="app-footer">
-          <p>Desarrollado por <a href="https://wa.me/584244980621?text=Hola%2C%20vi%20tu%20trabajo%20y%20me%20gustar%C3%ADa%20obtener%20m%C3%A1s%20informaci%C3%B3n%20sobre%20el%20desarrollo%20de%20p%C3%A1ginas%20web%20para%20mi%20negocio." target="_blank" rel="noopener noreferrer" className="developer-link"><strong>Elías Espinal</strong></a></p>
-          <p className="footer-sub">Soluciones de software profesional para restaurantes</p>
-        </footer>
+        <Footer restaurant={computedRestaurant} categories={categories} />
       </div>
 
       <Cart 

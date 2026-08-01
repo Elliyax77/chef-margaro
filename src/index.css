@@ -1133,22 +1133,112 @@ button {
   to { opacity: 1; transform: translateY(0); }
 }
 
-/* Footer Signature */
+/* Footer Completo */
 .app-footer {
-  padding: 30px 20px 40px;
-  text-align: center;
+  background-color: var(--card-bg);
+  padding: 40px 20px 30px;
+  margin-top: 40px;
+  border-top: 1px solid var(--border-color);
   color: var(--text-secondary);
+  border-bottom-left-radius: 32px;
+  border-bottom-right-radius: 32px;
+}
+
+.footer-top {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 32px;
+  margin-bottom: 40px;
+}
+
+@media (min-width: 600px) {
+  .footer-top {
+    grid-template-columns: 2fr 1fr 1fr;
+  }
+}
+
+.footer-logo-text {
+  font-size: 24px;
+  font-weight: 900;
+  color: var(--primary-color);
+  margin-bottom: 12px;
+  font-family: var(--font-family);
+  letter-spacing: -0.5px;
+  text-transform: uppercase;
+}
+
+.footer-desc {
   font-size: 14px;
-  margin-top: 20px;
-  border-top: 1px dashed var(--border-color);
+  line-height: 1.5;
+  color: var(--text-secondary);
+  max-width: 300px;
 }
 
-.app-footer strong {
+.footer-links h4, .footer-contact h4 {
+  font-size: 16px;
+  font-weight: 700;
   color: var(--text-primary);
+  margin-bottom: 16px;
 }
 
-.app-footer .footer-sub {
+.footer-links ul {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.footer-links a {
+  color: var(--text-secondary);
+  text-decoration: none;
+  font-size: 14px;
+  transition: color 0.2s;
+}
+
+.footer-links a:hover {
+  color: var(--primary-color);
+}
+
+.footer-contact p {
+  font-size: 14px;
+  margin-bottom: 8px;
+}
+
+.footer-whatsapp {
+  display: inline-flex;
+  align-items: center;
+  margin-top: 12px;
+  font-size: 14px;
+  font-weight: 700;
+  color: #25d366;
+  text-decoration: none;
+  transition: transform 0.2s;
+}
+
+.footer-whatsapp:hover {
+  transform: translateY(-2px);
+}
+
+.footer-bottom {
+  border-top: 1px solid var(--border-color);
+  padding-top: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  align-items: center;
+  text-align: center;
+}
+
+.copyright {
   font-size: 13px;
-  margin-top: 6px;
+}
+
+.developer-credit {
+  font-size: 13px;
   opacity: 0.8;
+}
+
+.developer-credit strong {
+  color: var(--text-primary);
 }
