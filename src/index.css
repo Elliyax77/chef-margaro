@@ -40,11 +40,21 @@ input, textarea {
   text-decoration: underline;
 }
 
+html {
+  overflow-x: hidden;
+  max-width: 100%;
+  width: 100%;
+}
+
 body {
   font-family: var(--font-family);
   background-color: var(--bg-color);
   color: var(--text-primary);
   line-height: 1.5;
+  overflow-x: hidden;
+  max-width: 100%;
+  width: 100%;
+  position: relative;
   -webkit-font-smoothing: antialiased;
 }
 
@@ -68,7 +78,10 @@ button {
   box-shadow: var(--shadow-lg);
   padding-bottom: 120px; /* Space for floating cart */
   position: relative;
+  overflow-x: clip;
+  width: 100%;
 }
+
 
 /* Hero Parallax */
 .hero-section {
